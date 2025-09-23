@@ -1,9 +1,15 @@
 from tkinter import *
+from tkinter import messagebox
+#message box is not a class, so have to import sepparately
 
+
+#Constants
 YELLOW = "#f7f5dd"
 FONT_NAME = "Helvetica"
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+
+
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 #TODO 1: Create a function called save()
@@ -14,17 +20,17 @@ def save():
     email_username_text = email_username_input.get()
     password_text = password_input.get()
 
-#TODO 2: Write to the data inside the entries to a data.txt file when the Add button is clicked
-    with open("Hidden_Reference.txt", "a") as storage_file:
-        storage_file.write(f"{website_name_text} | {email_username_text} | {password_text}\n")
-
-    website_name_input.delete(0, END)
-    password_input.delete(0, END)
-
-
-#TODO 4: All fields need to be cleared after Add button is pressed
-
-
+    if len(website_name_text) == 0 or len(password_text) == 0:
+        messagebox.showerror(title="Error - Missing Fields", message= "Please do not leave any fields empty!")
+    else:
+        is_ok = messagebox.askokcancel(title= website_name_text, message= f"Save the below details?\n\n Username - {email_username_text}\n\n"
+                                                              f"PW - {password_text}?")
+        if is_ok:
+            with open("Hidden_Reference.txt", "a") as storage_file:
+                storage_file.write(f"{website_name_text} | {email_username_text} | {password_text}\n")
+                website_name_input.delete(0, END)
+                password_input.delete(0, END)
+    #Clearing all entry objects once details are saved - Leaving email entry object
 
 # ---------------------------- UI SETUP ------------------------------- #
 
