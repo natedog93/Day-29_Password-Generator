@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
 import random
+import pyperclip
+
 #message box is not a class, so have to import sepparately
 
 
@@ -20,11 +22,20 @@ def generate_random_password():
     [password_list.append(random.choice(symbols)) for symbol in range(random.randint(2,4))]
     [password_list.append(random.choice(numbers)) for number in range(random.randint(2, 4))]
     random.shuffle(password_list)
-
     password = "".join(password_list)
+    #Using pyperlcip python module for copying password to clipboard when the button generate is clicked on
+    pyperclip.copy(password) #Will allow you to past into website that you are on
 
-    password_input.delete(0, END)  # Delete all existing text
-    password_input.insert(0, password)
+    #Could also take the below approach if you are going to use the .join(#variable) method - Assign variables
+    # letter_code = [random.choice(letters) for letter in range(random.randint(8, 10))]
+    # symbols_code = [random.choice(symbols) for symbol in range(random.randint(2, 4))]
+    # numbers_code = [random.choice(numbers) for number in range(random.randint(2, 4))]
+    # generated_password = letter_code + symbols_code + numbers_code
+    # password = "".join(generated_password)
+
+    #Deleting pre-existing text prior to generating new password, if absent, then password will keep adding to previous
+    password_input.delete(0, END) #Need to wipe, otherwise characters are infinite
+    password_input.insert(0, password) #Replacing with newly generated password
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
