@@ -18,7 +18,7 @@ def generate_random_password():
     symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
     password_list = []
-    [password_list.append(random.choice(letters)) for letter in range(random.randint(8,10))]
+    [password_list.append(random.choice(letters)) for letter in range(random.randint(3,5))]
     [password_list.append(random.choice(symbols)) for symbol in range(random.randint(2,4))]
     [password_list.append(random.choice(numbers)) for number in range(random.randint(2, 4))]
     random.shuffle(password_list)
@@ -55,8 +55,10 @@ def save():
         if is_ok:
             with open("Hidden_Reference.txt", "a") as storage_file:
                 storage_file.write(f"{website_name_text} | {email_username_text} | {password_text}\n")
+                pyperclip.copy(password_text)
                 website_name_input.delete(0, END)
                 password_input.delete(0, END)
+
     #Clearing all entry objects once details are saved - Leaving email entry object
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -91,7 +93,7 @@ email_username_input = Entry(width= 52)
 email_username_input.grid(column = 1, row = 2, columnspan= 2)
 email_username_input.insert(0, "nmlogon2700@gmail.com") #index of 0 would be inserting text at the very beginning of the entry vs END.
 
-password_input = Entry(show="*", width= 33)
+password_input = Entry(width= 33)
 password_input.grid(column = 1, row = 3)
 
 #Buttons
